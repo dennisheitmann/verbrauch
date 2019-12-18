@@ -1,0 +1,420 @@
+<html>
+<head>
+<title>Verbrauchsdaten</title>
+<meta http-equiv='pragma' content='no-cache' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<meta name='ICBM' content='048.16000, 012.62000' />
+<meta name='geo.position' content='48.16;12.62' />
+<meta name='geo.region' content='DE' />
+<meta name='geo.placename' content='Unterneukirchen, Bavaria' />
+<link rel='icon' href='favicon.png' type='image/png' sizes='100x100' />
+<link rel='shortcut icon' href='favicon.png' type='image/png' sizes='100x100' />
+<meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.00, maximum-scale=1.00, minimum-scale=1.00' />
+<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="canvasjs.min.js"></script>
+<script type="text/javascript">
+    window.onload = function() {
+        var dataPoints = [];
+        function getDataPointsFromCSV(csv) {
+            var dataPoints1 = csvLines = points = [];
+            var dataPoints2 = csvLines = points = [];
+            var dataPoints3 = csvLines = points = [];
+            var dataPoints4 = csvLines = points = [];
+            var dataPoints5 = csvLines = points = [];
+            var dataPoints6 = csvLines = points = [];
+            var dataPoints7 = csvLines = points = [];
+            var dataPoints8 = csvLines = points = [];
+            csvLines = csv.split(/[\r?\n|\r|\n]+/);
+            for (var i = 0; i < csvLines.length; i++)
+                if (csvLines[i].length > 0) {
+                    points = csvLines[i].split(";");
+                    dataPoints1.push({ 
+                        x: new Date(points[0]), 
+                        y: parseFloat(points[1])
+		    });
+		    dataPoints2.push({
+			x: new Date(points[0]),
+                        y: parseFloat(points[2])
+		    });
+		    dataPoints3.push({
+                        x: new Date(points[0]),
+                        y: parseFloat(points[3]),	
+		    });
+		    dataPoints4.push({
+                        x: new Date(points[0]),
+                        y: parseFloat(points[4])
+                    });
+		    dataPoints5.push({
+                        x: new Date(points[0]),
+                        y: parseFloat(points[5])
+                    });
+		    dataPoints6.push({
+                        x: new Date(points[0]),
+                        y: parseFloat(points[6])
+                    });
+		    dataPoints7.push({
+                        x: new Date(points[0]),
+                        y: parseFloat(points[7])
+                    });
+		    dataPoints8.push({
+                        x: new Date(points[0]),
+                        y: parseFloat(points[8])
+                    });
+                }
+	    var data = [];
+	    data.push(dataPoints1);
+            data.push(dataPoints2);
+            data.push(dataPoints3);
+            data.push(dataPoints4);
+	    data.push(dataPoints5);
+            data.push(dataPoints6);
+            data.push(dataPoints7);
+            data.push(dataPoints8);
+            return data;
+        }
+	var csvUrl = "https://mail.nxxt.de/box/verbrauch/export.php?year=" + new Date().getFullYear(0);
+	$.get(csvUrl, function(data) {
+	    /*
+	    var chart = new CanvasJS.Chart("chartContainer", {
+		    title: {
+		         text: "Verbrauchsdaten",
+		    },
+		    //zoomEnabled: true,
+		    //zoomType: "xy",
+		    theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: [{
+			title: "Strom",
+			titleFontColor: "black",
+			lineColor: "black",
+			tickColor: "black",
+			labelFontColor: "black",
+		    },
+		    {
+			title: "Gas",
+			titleFontColor: "red",
+			lineColor: "red",
+			tickColor: "red",
+			labelFontColor: "red",
+      		    },
+		    {
+			title: "Wasser",
+			titleFontColor: "blue",
+			lineColor: "blue",
+			tickColor: "blue",
+			labelFontColor: "blue",
+      		    },
+		    {
+			title: "Solar",
+			titleFontColor: "green",
+			lineColor: "green",
+			tickColor: "green",
+			labelFontColor: "green",
+      		    }],
+		    data: [{
+		         type: "line",
+			 showInLegend: true,
+			 legendText: "Strom",
+			 color: "black",
+			 axisYIndex: 0,
+			 xValueType: "dateTime",
+		         dataPoints: getDataPointsFromCSV(data)[0]
+		    },
+		    {
+		         type: "line",
+			 showInLegend: true,
+			 legendText: "Gas",
+			 color: "red",
+			 axisYIndex: 1,
+			 xValueType: "dateTime",
+		         dataPoints: getDataPointsFromCSV(data)[1]
+		    },
+		    {
+		         type: "line",
+			 showInLegend: true,
+			 axisYIndex: 2,
+			 legendText: "Wasser",
+			 color: "blue",
+			 xValueType: "dateTime",
+		         dataPoints: getDataPointsFromCSV(data)[2]
+		    },
+		    {
+		         type: "line",
+			 showInLegend: true,
+			 legendText: "Solar",
+			 color: "green",
+			 axisYIndex: 3,
+			 xValueType: "dateTime",
+		         dataPoints: getDataPointsFromCSV(data)[3]
+		    }]
+	    });	
+	    chart.render();
+	    */
+            var chart1 = new CanvasJS.Chart("chartContainer1", {
+		    title: {
+			text: "Strom",
+		    },
+			zoomEnabled: true,
+		    	zoomType: "xy",
+		    	theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: {
+			title: "kWh",
+			titleFontColor: "black",
+			lineColor: "black",
+			tickColor: "black",
+			labelFontColor: "black",
+			includeZero: false,
+		    },
+		    data: [{
+		        type: "line",
+			showInLegend: true,
+			legendText: "Strom (kWh)",
+			color: "black",
+			axisYIndex: 0,
+			xValueType: "dateTime",
+			dataPoints: getDataPointsFromCSV(data)[0]
+		    }]
+	    });
+	    chart1.render();
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+		    title: {
+			text: "Gas",
+		    },
+			zoomEnabled: true,
+		    	zoomType: "xy",
+		    	theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: {
+			title: "m3",
+			titleFontColor: "red",
+			lineColor: "red",
+			tickColor: "red",
+			labelFontColor: "red",
+			includeZero: false,
+		    },
+		    data: [{
+		        type: "line",
+			showInLegend: true,
+			legendText: "Gas (m3)",
+			color: "red",
+			axisYIndex: 0,
+			xValueType: "dateTime",
+			dataPoints: getDataPointsFromCSV(data)[1]
+		    }]
+	    });
+	    chart2.render();
+            var chart3 = new CanvasJS.Chart("chartContainer3", {
+		    title: {
+			text: "Wasser",
+		    },
+			zoomEnabled: true,
+		    	zoomType: "xy",
+		    	theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: {
+			title: "m3",
+			titleFontColor: "blue",
+			lineColor: "blue",
+			tickColor: "blue",
+			labelFontColor: "blue",
+			includeZero: false,
+		    },
+		    data: [{
+		        type: "line",
+			showInLegend: true,
+			legendText: "Wasser (m3)",
+			color: "blue",
+			axisYIndex: 0,
+			xValueType: "dateTime",
+			dataPoints: getDataPointsFromCSV(data)[2]
+		    }]
+	    });
+	    chart3.render();
+            var chart4 = new CanvasJS.Chart("chartContainer4", {
+		    title: {
+			text: "Solar",
+		    },
+			zoomEnabled: true,
+		    	zoomType: "xy",
+		    	theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: {
+			title: "kWh",
+			titleFontColor: "green",
+			lineColor: "green",
+			tickColor: "green",
+			labelFontColor: "green",
+			includeZero: false,
+		    },
+		    data: [{
+		        type: "line",
+			showInLegend: true,
+			legendText: "Solar (kWh)",
+			color: "green",
+			axisYIndex: 0,
+			xValueType: "dateTime",
+			dataPoints: getDataPointsFromCSV(data)[3]
+		    }]
+	    });
+	    chart4.render();
+            var chart5 = new CanvasJS.Chart("chartContainer5", {
+		    title: {
+			text: "Stromtageswerte",
+		    },
+			zoomEnabled: true,
+		    	zoomType: "xy",
+		    	theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: {
+			title: "kWh",
+			titleFontColor: "black",
+			lineColor: "black",
+			tickColor: "black",
+			labelFontColor: "black",
+			includeZero: true,
+		    },
+		    data: [{
+		        type: "line",
+			showInLegend: true,
+			legendText: "Stromtageswerte (kWh)",
+			color: "black",
+			axisYIndex: 0,
+			xValueType: "dateTime",
+			dataPoints: getDataPointsFromCSV(data)[4]
+		    }]
+	    });
+	    chart5.render();
+            var chart6 = new CanvasJS.Chart("chartContainer6", {
+		    title: {
+			text: "Gastageswerte",
+		    },
+			zoomEnabled: true,
+		    	zoomType: "xy",
+		    	theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: {
+			title: "m3",
+			titleFontColor: "red",
+			lineColor: "red",
+			tickColor: "red",
+			labelFontColor: "red",
+			includeZero: true,
+		    },
+		    data: [{
+		        type: "line",
+			showInLegend: true,
+			legendText: "Gastageswerte (m3)",
+			color: "red",
+			axisYIndex: 0,
+			xValueType: "dateTime",
+			dataPoints: getDataPointsFromCSV(data)[5]
+		    }]
+	    });
+	    chart6.render();
+            var chart7 = new CanvasJS.Chart("chartContainer7", {
+		    title: {
+			text: "Wassertageswerte",
+		    },
+			zoomEnabled: true,
+		    	zoomType: "xy",
+		    	theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: {
+			title: "m3",
+			titleFontColor: "blue",
+			lineColor: "blue",
+			tickColor: "blue",
+			labelFontColor: "blue",
+			includeZero: true,
+		    },
+		    data: [{
+		        type: "line",
+			showInLegend: true,
+			legendText: "Wassertageswerte (m3)",
+			color: "blue",
+			axisYIndex: 0,
+			xValueType: "dateTime",
+			dataPoints: getDataPointsFromCSV(data)[6]
+		    }]
+	    });
+	    chart7.render();
+            var chart8 = new CanvasJS.Chart("chartContainer8", {
+		    title: {
+			text: "Solartageswerte",
+		    },
+			zoomEnabled: true,
+		    	zoomType: "xy",
+		    	theme: "light2",
+		    AxisX: {
+			valueFormatString: "MMM",
+			interval:1,
+			intervalType: "month",
+		    },
+		    axisY: {
+			title: "kWh",
+			titleFontColor: "green",
+			lineColor: "green",
+			tickColor: "green",
+			labelFontColor: "green",
+			includeZero: true,
+		    },
+		    data: [{
+		        type: "line",
+			showInLegend: true,
+			legendText: "Solartageswerte (kWh)",
+			color: "green",
+			axisYIndex: 0,
+			xValueType: "dateTime",
+			dataPoints: getDataPointsFromCSV(data)[7]
+		    }]
+	    });
+	    chart8.render();
+        });
+    }
+</script>
+</head>
+<body>
+	<!-- <div id="chartContainer" style="align:center; width:90%; height:600px;"></div> -->
+	<div id="chartContainer1" style="align:center; width:90%; height:600px;"></div>
+	<div id="chartContainer5" style="align:center; width:90%; height:600px;"></div>
+	<div id="chartContainer2" style="align:center; width:90%; height:600px;"></div>
+	<div id="chartContainer6" style="align:center; width:90%; height:600px;"></div>
+	<div id="chartContainer3" style="align:center; width:90%; height:600px;"></div>
+	<div id="chartContainer7" style="align:center; width:90%; height:600px;"></div>
+	<div id="chartContainer4" style="align:center; width:90%; height:600px;"></div>
+	<div id="chartContainer8" style="align:center; width:90%; height:600px;"></div>
+</body>
+</html>
