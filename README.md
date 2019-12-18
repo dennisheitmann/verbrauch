@@ -5,4 +5,4 @@ Dokumentation des Strom-, Gas-, Wasserverbrauchs und der Solarthermie eines Einf
 2) .htaccess konfiguieren (Das Projekt selber hat keine Authentifizierung und soll nur im internen, vertrauenswürdigen Netzwerk betrieben werden)
 3) Eintragen, Auslesen und Darstellen der Daten durch Aufruf der Startseite (index.php)
 
-Screenshot: Screenshot_Verbrauch.png
+![Screenshot](Screenshot_Verbrauch.png "Screenshot")
