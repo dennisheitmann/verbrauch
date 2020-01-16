@@ -1,4 +1,5 @@
 <?php
+setlocale(LC_ALL, "de_DE.UTF-8");
 if(isset($_GET['date']) AND isset($_GET['strom']) AND isset($_GET['gas']) AND isset($_GET['wasser']) AND isset($_GET['solar'])) {
 	$date = preg_replace('/[^0-9-]/', '', $_GET['date']);
 	$strom = preg_replace('/[^0-9.,]/', '', $_GET['strom']);
